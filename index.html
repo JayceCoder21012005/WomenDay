@@ -8,9 +8,11 @@
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
-            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            background: linear-gradient(to right, #ff6584, #d74b8a);
             color: white;
             padding: 50px;
+            position: relative;
+            overflow: hidden;
         }
         h1 {
             font-size: 3em;
@@ -24,7 +26,7 @@
         }
         button {
             background: white;
-            color: #ff758c;
+            color: #ff6584;
             border: none;
             padding: 10px 20px;
             font-size: 1.2em;
@@ -34,29 +36,63 @@
             transition: 0.3s;
         }
         button:hover {
-            background: #ff5277;
+            background: #d74b8a;
             color: white;
         }
-        #surprise {
+        .hidden-content {
             display: none;
-            font-size: 1.8em;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .romantic-image {
+            width: 300px;
+            height: auto;
+            border-radius: 20px;
             margin-top: 20px;
-            animation: fadeIn 1.5s ease-in-out;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            filter: brightness(90%);
         }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
+        @keyframes falling-leaves {
+            0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        .leaf {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: rgba(255, 204, 153, 0.7);
+            border-radius: 50%;
+            top: -10px;
+            animation: falling-leaves 5s linear infinite;
+        }
     </style>
 </head>
 <body>
     <h1>Happy Women's Day! 🌸</h1>
-    <p>To the most wonderful woman, you are amazing, strong, and beautiful. I wish you happiness and success in everything you do! 💖</p>
-    <button onclick="showSurprise()">Click for a Surprise</button>
-    <div id="surprise">You make the world brighter just by being you! 😊💖</div>
+    <button onclick="showSurprise()">Click Here for a Surprise</button>
+    <div id="surprise-content" class="hidden-content">
+        <img src="Sa.png" alt="Your Beautiful Image" class="romantic-image">
+        <p>To the most wonderful woman, you are amazing, strong, and beautiful. I wish you happiness and success in everything you do! 💖</p>
+        <audio id="background-music" src="hbd.mpeg" loop autoplay></audio>
+    </div>
     <script>
+        function createLeaves() {
+            for (let i = 0; i < 30; i++) {
+                let leaf = document.createElement("div");
+                leaf.className = "leaf";
+                leaf.style.left = Math.random() * window.innerWidth + "px";
+                leaf.style.animationDuration = Math.random() * 5 + 3 + "s";
+                document.body.appendChild(leaf);
+            }
+        }
         function showSurprise() {
-            document.getElementById("surprise").style.display = "block";
+            document.querySelector("button").style.display = "none";
+            document.getElementById("surprise-content").style.display = "block";
+            document.getElementById("background-music").play();
+            createLeaves();
         }
     </script>
 </body>
